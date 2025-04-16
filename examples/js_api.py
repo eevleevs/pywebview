@@ -108,7 +108,7 @@ html = """
 """
 
 
-class HeavyStuffAPI:
+class HeavyStuffAPI(list):
     def __init__(self):
         self.cancel_heavy_stuff_flag = False
 
@@ -140,7 +140,8 @@ class NotExposedApi:
         return 'This method is not exposed'
 
 class Api:
-    heavy_stuff = HeavyStuffAPI()
+    heavy_stuff1 = HeavyStuffAPI()
+    heavy_stuff2 = HeavyStuffAPI()
     _this_wont_be_exposed = NotExposedApi()
 
     def init(self):
@@ -166,4 +167,4 @@ class Api:
 if __name__ == '__main__':
     api = Api()
     window = webview.create_window('JS API example', html=html, js_api=api)
-    webview.start()
+    webview.start(debug=True)
