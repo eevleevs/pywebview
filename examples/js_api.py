@@ -46,7 +46,8 @@ html = """
 <p id='pywebview-status'><i>pywebview</i> is not ready</p>
 
 <button onClick="initialize()">Hello Python</button><br/>
-<button id="heavy-stuff-btn" onClick="doHeavyStuff()">Perform a heavy operation</button><br/>
+<button id="heavy-stuff-btn1" onClick="doHeavyStuff1()">Perform a heavy operation 1</button><br/>
+<button id="heavy-stuff-btn2" onClick="doHeavyStuff2()">Perform a heavy operation 2</button><br/>
 <button onClick="getRandomNumber()">Get a random number</button><br/>
 <label for="name_input">Say hello to:</label><input id="name_input" placeholder="put a name here">
 <button onClick="greet()">Greet</button><br/>
@@ -71,22 +72,40 @@ html = """
         pywebview.api.init().then(showResponse)
     }
 
-    function doHeavyStuff() {
-        var btn = document.getElementById('heavy-stuff-btn')
+    function doHeavyStuff1() {
+        var btn = document.getElementById('heavy-stuff-btn1')
 
-        pywebview.api.heavy_stuff.doHeavyStuff().then(function(response) {
+        pywebview.api.heavy_stuff1.doHeavyStuff().then(function(response) {
             showResponse(response)
-            btn.onclick = doHeavyStuff
-            btn.innerText = 'Perform a heavy operation'
+            btn.onclick = doHeavyStuff1
+            btn.innerText = 'Perform a heavy operation 1'
         })
 
         showResponse({message: 'Working...'})
         btn.innerText = 'Cancel the heavy operation'
-        btn.onclick = cancelHeavyStuff
+        btn.onclick = cancelHeavyStuff1
     }
 
-    function cancelHeavyStuff() {
-        pywebview.api.heavy_stuff.cancelHeavyStuff()
+    function doHeavyStuff2() {
+        var btn = document.getElementById('heavy-stuff-btn2')
+
+        pywebview.api.heavy_stuff2.doHeavyStuff().then(function(response) {
+            showResponse(response)
+            btn.onclick = doHeavyStuff2
+            btn.innerText = 'Perform a heavy operation 2'
+        })
+
+        showResponse({message: 'Working...'})
+        btn.innerText = 'Cancel the heavy operation'
+        btn.onclick = cancelHeavyStuff2
+    }
+
+    function cancelHeavyStuff1() {
+        pywebview.api.heavy_stuff1.cancelHeavyStuff()
+    }
+
+    function cancelHeavyStuff2() {
+        pywebview.api.heavy_stuff2.cancelHeavyStuff()
     }
 
     function getRandomNumber() {
