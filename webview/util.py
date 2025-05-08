@@ -68,12 +68,12 @@ class ImmutableDict(UserDict):
         raise KeyError('Deleting keys is not allowed.')
 
 
-def is_app(url: str | None) -> bool:
+def is_app(url: str | callable | None) -> bool:
     """Returns true if 'url' is a WSGI or ASGI app."""
     return callable(url)
 
 
-def is_local_url(url: str | None) -> bool:
+def is_local_url(url: str | callable | None) -> bool:
     return not ((is_app(url)) or (
             (not url) or (url.startswith('http://')) or (url.startswith('https://')) or url.startswith('file://')))
 
@@ -172,10 +172,11 @@ def inject_pywebview(platform: str, window: Window) -> str:
         return params
 
     def get_functions(obj: object, base_name: str = '', functions: dict[str, object] = None):
-        if obj in exposed_objects:
+        obj_id = id(obj)
+        if obj_id in exposed_objects:
             return functions
         else:
-            exposed_objects.append(obj)
+            exposed_objects.append(obj_id)
 
         if functions is None:
             functions = {}
